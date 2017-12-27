@@ -1,26 +1,29 @@
 <!-- index.html.erb -->
 <h1>여기는 INDEX 입니다.</h1>
-<table class="table table-hover">
+<table class="table table-hover text-center">
   <thead>
     <tr>
-      <th>글번호</th>
+      <th width="15%">글번호</th>
       <th>제목</th>
-      <th>보기</th>
-      <th>수정</th>
-      <th>삭제</th>
     </tr>
   </thead>
   <tbody>
     <% @boards.each do |board| %>
-    <tr>
+    <tr class="board" data-value="<%= board.id %>">
       <td><%= board.id %></td>
-      <td><%= board.title %></td>
-      <td><a href="/boards/<%= board.id %>">보기</a></td>
-      <td><a href="/boards/<%= board.id %>/edit">수정</a></td>
-      <td><a href="/boards/<%= board.id %>" data-method="delete" data-confirm="삭제할꼬얌?">삭제</a></td>
+      <td class="title"><%= board.title %></td>
     </tr>
     <% end %>
   </tbody>
 </table>
 
-<a href="/boards/new" class="btn btn-danger">새글쓰기</a>
+<a href="/boards/new" class="btn btn-warning">새글쓰기</a>
+<button type="button" class="btn btn-info">제목바꾸기</button>
+<button type="button" class="btn btn-danger color-btn">빨강</button>
+<button type="button" class="btn btn-info color-btn">파랑</button>
+<button type="button" class="btn btn-success color-btn">초록</button>
+<script>
+  
+</script>
+<!-- <script src="./title.js"></script> -->
+<!-- <script src="./text-color.js"></script> -->
