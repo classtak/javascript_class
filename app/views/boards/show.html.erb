@@ -1,36 +1,70 @@
 <h1><%= @board.title %></h1>
 <p><%= @board.contents %></p>
 
-<button type="button" class="btn btn-info" id="like">
-  <i class="fas fa-thumbs-up fa-lg"></i> 좋아요(<span id="like-count">0</span>)
+<% if @like.count > 0 %>
+<!-- 좋아요가 이미 눌려있을 때 -->
+<button type="button" class="btn btn-danger" id="like">
+  <i class="fas fa-thumbs-up fa-lg"></i> 좋아요(<span id="like-count"><%= @board.likes.count %></span>)
 </button>
+<% else %>
+<!-- 좋아요를 새로 눌렀을 때 -->
+<button type="button" class="btn btn-info" id="like">
+  <i class="fas fa-thumbs-up fa-lg"></i> 좋아요(<span id="like-count"><%= @board.likes.count %></span>)
+</button>
+<% end %>
 
-<a href="/">홈으로</a>
+
+<a href="/">
+  <button type="button" class="btn btn-default">
+    <i class="fas fa-home"></i>홈으로
+  </button>
+</a>
+
+
+<form class="form-inline" id="comment-form">
+  <input type="text" class="form-control" id="comment" placeholder="Comments">
+  <button type="submit" class="btn btn-primary create-comment"><i class="fas fa-comments"></i>댓글달기</button>
+</form>
+<table class="table">
+  <tbody class="comment-list">
+    <% @board.comments.reverse.each do |comment| %>
+    <tr>
+      <td><%= comment.contents %></td>
+      <td>수정</td>
+      <td>삭제</td>
+    </tr>
+    <% end %>
+  </tbody>
+</table>
 
 <script>
   $(function() {
-    // 1. 좋아요 버튼을 클릭하면
     $('#like').on('click', function() {
       $.ajax({
         url: '/boards/<%= @board.id %>/like',
         method: 'POST'
       });
-
-      // 2. 버튼의 색깔을 빨강으로 바꾸고
-      if(this.classList.contains('btn-info')) {
-        // 3. 좋아요 카운트를 1 증가시킨다.
-        $('#like-count').text(parseInt($('#like-count').html())+1);
-      } else {
-        // $(this).addClass('btn-info').removeClass('btn-danger');
-        // 3. 좋아요 카운트를 1 증가시킨다.
-        $('#like-count').text(parseInt($('#like-count').html())-1);
-      }
-      $(this).toggleClass('btn-danger').toggleClass('btn-info');
-
-      // 4. 빨간색으로 변한 버튼을 누르면
-      // 5. 다시 파랑으로 바꾸고
-      // 6. 좋아요 카운트를 1 감소시킨다.
     });
+
+    // 1. 댓글 달기 버튼을 누르면
+    // 1-1. 댓글 form이 제출(submit)되면
+    $('#comment-form').on('submit', function(event) {
+      event.preventDefault();
+      // 2. input안에 들어있는 내용을 찾아서
+      var c = $('#comment').val();
+      // 3. 서버에 보내준다.
+      $.ajax({
+        url: "/boards/<%= @board.id %>/create_comment",
+        method: "POST",
+        data: {
+          contents: c
+        }
+      });
+      // 4. 작성한 내용을 input 아래에 추가해준다.
+    })
+
+
+
   })
 
 
