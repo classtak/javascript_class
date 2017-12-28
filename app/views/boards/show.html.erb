@@ -1,4 +1,39 @@
 <h1><%= @board.title %></h1>
 <p><%= @board.contents %></p>
 
+<button type="button" class="btn btn-info" id="like">
+  <i class="fas fa-thumbs-up fa-lg"></i> 좋아요(<span id="like-count">0</span>)
+</button>
+
 <a href="/">홈으로</a>
+
+<script>
+  $(function() {
+    // 1. 좋아요 버튼을 클릭하면
+    $('#like').on('click', function() {
+      $.ajax({
+        url: '/boards/<%= @board.id %>/like',
+        method: 'POST'
+      });
+
+      // 2. 버튼의 색깔을 빨강으로 바꾸고
+      if(this.classList.contains('btn-info')) {
+        // 3. 좋아요 카운트를 1 증가시킨다.
+        $('#like-count').text(parseInt($('#like-count').html())+1);
+      } else {
+        // $(this).addClass('btn-info').removeClass('btn-danger');
+        // 3. 좋아요 카운트를 1 증가시킨다.
+        $('#like-count').text(parseInt($('#like-count').html())-1);
+      }
+      $(this).toggleClass('btn-danger').toggleClass('btn-info');
+
+      // 4. 빨간색으로 변한 버튼을 누르면
+      // 5. 다시 파랑으로 바꾸고
+      // 6. 좋아요 카운트를 1 감소시킨다.
+    });
+  })
+
+
+
+
+</script>

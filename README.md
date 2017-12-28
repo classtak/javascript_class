@@ -291,3 +291,13 @@ function func2() {
 - javascript/jquery를 이용해서 페이지 동적으로 수정하기
 - 좋아요(모델링)
 - 좋아요를 ajax로 구현하기(ajax 가장 기본)
+
+
+
+
+
+HTML, CSS, JS - 프론트앤드(View)를 구성하는 가장 기초
+
+Rails - 백앤드(로직)를 담당하고 있음
+
+좋아요, 댓글, 수정/삭제

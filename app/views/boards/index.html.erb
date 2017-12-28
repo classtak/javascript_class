@@ -1,4 +1,5 @@
 <!-- index.html.erb -->
+
 <h1>여기는 INDEX 입니다.</h1>
 <table class="table table-hover text-center">
   <thead>
@@ -11,19 +12,45 @@
     <% @boards.each do |board| %>
     <tr class="board" data-value="<%= board.id %>">
       <td><%= board.id %></td>
-      <td class="title"><%= board.title %></td>
+      <td class="title" data-id="<%= board.id %>"><%= board.title %></td>
     </tr>
     <% end %>
   </tbody>
 </table>
 
 <a href="/boards/new" class="btn btn-warning">새글쓰기</a>
-<button type="button" class="btn btn-info">제목바꾸기</button>
-<button type="button" class="btn btn-danger color-btn">빨강</button>
-<button type="button" class="btn btn-info color-btn">파랑</button>
-<button type="button" class="btn btn-success color-btn">초록</button>
+<button type="button" class="btn btn-info change-title">제목바꾸기</button>
+<button type="button" class="btn btn-danger color-btn" data-class="text-danger">빨강</button>
+<button type="button" class="btn btn-info color-btn" data-class="text-primary">파랑</button>
+<button type="button" class="btn btn-success color-btn" data-class="text-success">초록</button>
 <script>
-  
+  $(document).ready(function() {
+    // 1. 마우스 오버를 하면
+    // 1-1. 버튼을 찾아서
+    // 1-2. 버튼에 마우스 오버 이벤트를 달아준다.
+    // 1-3. >> 버튼에 마우스가 올라갈때, 나갈때 이벤트를 구분
+    $('.color-btn').on('mouseenter', function() {
+      // console.log("마우스 오버됨");
+      // console.log($(this));
+      // console.log($(this).attr("data-class"));
+      var textStyle = $(this).data("class");
+      // 2. table 전체에(table을 찾아서)
+      $('.table').toggleClass(textStyle);
+    });
+    // 3. 글자 색을 바꿔주는 class를 추가한다.
+    $('.color-btn').on('mouseleave', function() {
+      $('.table').toggleClass($(this).data("class"));
+    });
+
+    // 1. td에 해당하는 부분을 클릭하면
+    $('.title').on('click', function() {
+      // 2. td 속성에 있는 data-id의 속성값을 가져와서
+      // 3. 페이지를 이동시킴
+      location.href="/boards/"+$(this).data('id');
+    })
+
+  });
 </script>
+<!-- <script src="tr-link.js"></script> -->
 <!-- <script src="./title.js"></script> -->
 <!-- <script src="./text-color.js"></script> -->

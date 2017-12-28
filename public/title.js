@@ -6,6 +6,7 @@
 // getElementsByName
 // getElementById => 1개만 리턴
 var btn = document.getElementsByTagName('button')[1];
+
 console.log(btn);
 // 1.2. 해당 element에 click 이벤트 리스너를 달아준다.
 btn.onclick = function() {

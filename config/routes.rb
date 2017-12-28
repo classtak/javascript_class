@@ -14,6 +14,8 @@ Rails.application.routes.draw do
   # D - delete
   delete '/boards/:id' => 'boards#destroy' # destroy
 
+  post '/boards/:id/like' => 'boards#like_board'
+
   # SIGN IN / UP / OUT
   # sign in
   get '/signin' => 'sessions#signin'

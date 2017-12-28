@@ -3,7 +3,7 @@ class BoardsController < ApplicationController
   def index
     @boards = Board.all
   end
-  
+
   def show
     @board = Board.find(params[:id])
   end
@@ -39,5 +39,13 @@ class BoardsController < ApplicationController
     @board = Board.find(params[:id])
     @board.destroy
     redirect_to "/"
+  end
+
+  def like_board
+    # Like.create(
+    #   user_id: current_user.id,
+    #   board_id: params[:id]
+    # )
+    puts "서버로 요청이 왔다!!!"
   end
 end
