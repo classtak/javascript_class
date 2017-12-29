@@ -19,6 +19,7 @@ Rails.application.routes.draw do
   # Comment
   post '/boards/:id/create_comment' => 'boards#create_comment'
   delete '/boards/:id/comments/:comment_id' => 'boards#destroy_comment'
+  put '/boards/:id/comments/:comment_id' => 'boards#update_comment'
 
   # SIGN IN / UP / OUT
   # sign in

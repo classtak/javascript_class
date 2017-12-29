@@ -36,7 +36,7 @@
     <% @board.comments.reverse.each do |comment| %>
     <tr id="comment-<%= comment.id %>">
       <td><%= comment.contents %></td>
-      <td><button type="button" class="btn btn-warning edit-comment"><i class="fas fa-cog"></i> 수정</button></td>
+      <td><button type="button" class="btn btn-warning edit-comment" data-id="<%= comment.id %>"><i class="fas fa-cog"></i> 수정</button></td>
       <td><button type="button" class="btn btn-danger destroy-comment" data-id="<%= comment.id %>"><i class="fas fa-trash-alt"></i> 삭제</button></td>
     </tr>
     <% end %>
@@ -80,10 +80,42 @@
         })
       }
     })
+    // 1. 수정 버튼을 누르면
+    $(document).on('click', '.edit-comment', function() {
+      // console.log($($(this).parent().siblings()[0]));
+      var comment = $($(this).parent().siblings()[0]);
+      // 2. 댓글이 출력되는 부분을 input태그로 바꿔주고
+      // console.log(comment[0].textContent);
+      var q = comment[0].textContent;
+      var id = $(this).data('id');
+      comment.replaceWith(`<td>
+        <input type="text" value="${q}" class="form-control edit-comment-form">
+        </td>`);
+      // 3. 수정버튼은 완료버튼으로 바꿔주고
+      $(this).replaceWith(`<button type="button" class="btn btn-warning update-comment" data-id="${id}"><i class="fas fa-cog"></i> 완료</button>`);
+    })
+    // 4. 완료버튼을 누르면 input 태그를 다시 td태그로 바꾸고
+    $(document).on('click', '.update-comment', function() {
+      // console.log($(this));
+      // console.log($($(this).parent().siblings()[0]));
+      var q = $('.edit-comment-form').val();
+      var id = $(this).data('id');
+      $($(this).parent().siblings()[0]).replaceWith(`
+        <td>${q}</td>
+        `);
+      $(this).replaceWith(`<button type="button" class="btn btn-warning edit-comment" data-id="${id}"><i class="fas fa-cog"></i> 수정</button>`)
+      $.ajax({
+        url: `/boards/<%= @board.id %>/comments/${id}`,
+        method: 'PUT',
+        data: {
+          contents: q
+        }
+      })
+    })
 
-    // 3. 서버에 있는 DB에서 삭제한 이후에
 
-    // 4. 해당 HTML Element를 삭제한다.
+    // 5. 해당 내용을 서버로 전송합니다.
+
 
 
 

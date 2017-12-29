@@ -72,4 +72,10 @@ class BoardsController < ApplicationController
     @comment = Comment.find(params[:comment_id]).destroy
     puts "#{params[:comment_id]}번 댓글 삭제!!"
   end
+
+  def update_comment
+    # 맞는 comment를 찾아서 contents 컬럼만 업데이트
+    puts params[:contents]
+    Comment.find(params[:comment_id]).update(contents: params[:contents])
+  end
 end
