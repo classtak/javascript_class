@@ -300,15 +300,21 @@ document가 로드되기 전에 DOM을 탐색하는 것을 막기 위해서 반�
 
 ```html
 <script>
-  $(function) {
+  $(function){
     // 실행문
   }
   혹은
   $(document).ready(function() {
-    
+    // 실행문
   })
 </script>
 ```
+
+
+
+#### ajax
+
+자바스크립트로 요청을 보내서 서버 로직을 실행하고 응답으로 자바스크립트를 실행해서 HTML Documet의 일부분만 고치는 방법
 
 
 
@@ -385,4 +391,6 @@ has_many :likes
 좋아요를 처음 눌렀을 때와 이미 눌렸을 때를 따로 처리하기 위해서 분기문으로 작성한다.
 
 ajax로 들어온 요청에 대한 응답은 해당 컨트롤러의 이름을 가진 `js.erb`파일이다. view파일이 있는 *app/views/boards*폴더에 `like_board.js.erb`파일을 만든다.
+
+#### ajax로 댓글 구현하기
 
