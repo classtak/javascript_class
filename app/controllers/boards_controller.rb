@@ -66,7 +66,10 @@ class BoardsController < ApplicationController
       board_id: params[:id],
       contents: params[:contents]
     )
-    puts params[:contents]
-    puts "서버로 요청이 왔다!!!"
+  end
+
+  def destroy_comment
+    @comment = Comment.find(params[:comment_id]).destroy
+    puts "#{params[:comment_id]}번 댓글 삭제!!"
   end
 end

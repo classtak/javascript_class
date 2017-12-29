@@ -18,6 +18,7 @@ Rails.application.routes.draw do
   post '/boards/:id/like' => 'boards#like_board'
   # Comment
   post '/boards/:id/create_comment' => 'boards#create_comment'
+  delete '/boards/:id/comments/:comment_id' => 'boards#destroy_comment'
 
   # SIGN IN / UP / OUT
   # sign in
